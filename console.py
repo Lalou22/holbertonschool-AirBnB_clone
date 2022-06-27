@@ -5,6 +5,7 @@ Entry point for the command interpreter of the HBNB application
 import cmd
 import models
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 
 

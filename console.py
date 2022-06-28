@@ -173,16 +173,30 @@ class HBNBCommand(cmd.Cmd):
                         self.do_destroy(inner_str)
 
                     if funct[0] == "update":
-                        up_args = funct[1].split(",")
-                        if len(up_args) == 3:
-                            up_id = up_args[0].split('"')[1::2][0]
-                            up_key = up_args[1].split('"')[1::2][0]
-                            up_val = up_args[2].split('"')[1::2][0]
-                            inner_str = args[0] + " " + str(up_id) + " "
-                            inner_str = inner_str + str(up_key) + " "
-                            inner_str = inner_str + '"' + str(up_val) + '"'
-                            self.do_update(inner_str)
+                        temp_dict = funct[1].split("{")
+                        if len(temp_dict) == 2:
+                            if temp_dict[1][-1] == ')':
+                                temp_dict[1] = temp_dict[1][:-1]
+                            str_dic = "{" + temp_dict[1]
+                            up_dict = eval(str_dic)
+                            funct[1] = temp_dict[0]
+                        else:
+                            up_dict = {}
 
+                        up_args = funct[1].split(",")
+                        if len(up_args) == 2 or len(up_args) == 3:
+                            up_id = up_args[0].split('"')[1::2][0]
+
+                            if len(up_args) == 3:
+                                up_key = up_args[1].split('"')[1::2][0]
+                                up_val = up_args[2].split('"')[1::2][0]
+                                up_dict[up_key] = up_val
+
+                            for key, value in up_dict.items():
+                                inner_str = args[0] + " " + str(up_id)
+                                inner_str = inner_str + str(key) + " "
+                                inner_str = inner_str + '"' + str(val) + '"'
+                                self.do_update(inner_str)
         else:
             pass
 

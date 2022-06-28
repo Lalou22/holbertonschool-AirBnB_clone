@@ -81,7 +81,7 @@ class TestBaseModel(unittest.TestCase):
         old_updated = new_model.updated_at
         new_model.save()
         new_created = new_model.created_at
-        new_updated = new_model.updated_at        
+        new_updated = new_model.updated_at
         self.assertNotEqual(old_updated, new_updated)
         self.assertEqual(old_created, new_created)
 
@@ -104,7 +104,7 @@ class TestBaseModel(unittest.TestCase):
                          "<class 'models.base_model.BaseModel'>")
         self.assertIsInstance(new_model, BaseModel)
         self.assertTrue(issubclass(type(new_model), BaseModel))
-        
+
     def test_BaseModel(self):
         """
         Creates and test a model using the my_model class variable

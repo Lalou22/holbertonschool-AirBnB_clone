@@ -60,7 +60,9 @@ class TestUser(unittest.TestCase):
         self.assertEqual(new_user.last_name, "")
 
     def test_str(self):
-        """test that the str method has the correct output"""
+        """
+        Test the __str__ method
+        """
         new_user = User()
         string = "[User] ({}) {}".format(new_user.id, new_user.__dict__)
         self.assertEqual(string, str(new_user))

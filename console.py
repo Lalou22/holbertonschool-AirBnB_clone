@@ -4,6 +4,7 @@ Entry point for the command interpreter of the HBNB application
 """
 import cmd
 import models
+from models import allclasses
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -19,8 +20,6 @@ class HBNBCommand(cmd.Cmd):
     Class for the Holberton Clone AirBnB proyect.
     """
     prompt = '(hbnb) '
-    classes = ['BaseModel', 'User', 'State', 'City',
-               'Amenity', 'Place', 'Review']
 
     def do_EOF(self, arg):
         """
@@ -43,7 +42,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 0:
             print("** class name missing **")
             return False
-        if args[0] in self.classes:
+        if args[0] in allclasses:
             instance = eval(args[0])()
         else:
             print("** class doesn't exist **")
@@ -60,7 +59,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 0:
             print("** class name missing **")
             return False
-        if args[0] in self.classes:
+        if args[0] in allclasses:
             if len(args) > 1:
                 key = args[0] + "." + args[1]
                 if key in models.storage.all():
@@ -80,7 +79,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 0:
             print("** class name missing **")
             return False
-        elif args[0] not in self.classes:
+        elif args[0] not in allclasses:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
@@ -102,7 +101,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 0:
             print([str(v) for k, v in storage.all().items()])
         else:
-            if args[0] not in self.classes:
+            if args[0] not in allclasses:
                 print("** class doesn't exist **")
             else:
                 print([str(v) for k, v in storage.all().items()
@@ -118,7 +117,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         args = arg.split()
-        if args[0] not in self.classes:
+        if args[0] not in allclasses:
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")

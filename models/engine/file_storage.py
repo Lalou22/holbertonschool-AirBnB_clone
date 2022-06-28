@@ -5,6 +5,7 @@ deserializes JSON file to instances.
 """
 import json
 import models
+import os
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -12,9 +13,6 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
-
-classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
-           "Place": Place, "Review": Review, "State": State, "User": User}
 
 
 class FileStorage:
@@ -60,10 +58,11 @@ class FileStorage:
         """
         Deserializes the JSON file to __objects
         """
-        try:
-            with open(self.__file_path, 'r') as f:
-                jo = json.load(f)
-            for key in jo:
-                self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
-        except FileNotFoundError:
-            pass
+        my_dict = {'BaseModel': BaseModel, 'User': User, 'Place': Place,
+                   'State': State, 'City': City, 'Amenity': Amenity,
+                   'Review': Review}
+        if os.path.isfile(FileStorage.__file_path):
+            with open(FileStorage.__file_path, 'r', encoding='utf-8') as q:
+                other_dict = json.loads(q.read())
+                for key, val in other_dict.items():
+                    self.new(my_dict[val['__class__']](**val))

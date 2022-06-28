@@ -181,10 +181,7 @@ class HBNBCommand(cmd.Cmd):
                             inner_str = args[0] + " " + str(up_id) + " "
                             inner_str = inner_str + str(up_key) + " "
                             inner_str = inner_str + '"' + str(up_val) + '"'
-                            print(inner_str)
-                            """
                             self.do_update(inner_str)
-                            """
 
         else:
             pass

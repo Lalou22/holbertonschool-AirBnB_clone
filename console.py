@@ -148,16 +148,23 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 2:
             if args[0] in allclasses:
                 funct = args[1].split('(', 1)
-                dic_fun = ["all", "count"]
+                dic_fun = ["all", "count", "show"]
+
                 if funct[0] in dic_fun:
                     if funct[0] == "all":
                         self.do_all(str(args[0]))
+
                     if funct[0] == "count":
                         count = 0
                         for k, v in storage.all().items():
                             if type(v).__name__ == args[0]:
                                 count = count + 1
                         print(count)
+
+                    if funct[0] == "show":
+                        inner_str = funct[1].split('"')[1::2]
+                        inner_str = args[0] + " " + str(inner_str[0])
+                        self.do_show(inner_str)
         else:
             pass
             

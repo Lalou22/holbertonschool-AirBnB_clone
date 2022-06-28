@@ -193,10 +193,15 @@ class HBNBCommand(cmd.Cmd):
                                 up_dict[up_key] = up_val
 
                             for key_, val_ in up_dict.items():
-                                inner_str = args[0] + " " + str(up_id)
+                                inner_str = {}
+                                inner_str = args[0] + " " + str(up_id) + " "
                                 inner_str = inner_str + str(key_) + " "
                                 inner_str = inner_str + '"' + str(val_) + '"'
+                                print(inner_str)
+                                print()
+                                """
                                 self.do_update(inner_str)
+                                """
         else:
             pass
 

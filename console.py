@@ -4,6 +4,7 @@ Entry point for the command interpreter of the HBNB application
 """
 import cmd
 import models
+from datetime import datetime
 from models import allclasses
 from models.base_model import BaseModel
 from models.user import User
@@ -148,7 +149,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 2:
             if args[0] in allclasses:
                 funct = args[1].split('(', 1)
-                dic_fun = ["all", "count", "show", "destroy"]
+                dic_fun = ["all", "count", "show", "destroy", "update"]
 
                 if funct[0] in dic_fun:
                     if funct[0] == "all":
@@ -170,9 +171,24 @@ class HBNBCommand(cmd.Cmd):
                         inner_str = funct[1].split('"')[1::2]
                         inner_str = args[0] + " " + str(inner_str[0])
                         self.do_destroy(inner_str)
+
+                    if funct[0] == "update":
+                        up_args = funct[1].split(",")
+                        if len(up_args) == 3:
+                            up_id = up_args[0].split('"')[1::2][0]
+                            up_key = up_args[1].split('"')[1::2][0]
+                            up_val = up_args[2].split('"')[1::2][0]
+                            inner_str = args[0] + " " + str(up_id) + " "
+                            inner_str = inner_str + str(up_key) + " "
+                            inner_str = inner_str + '"' + str(up_val) + '"'
+                            print(inner_str)
+                            """
+                            self.do_update(inner_str)
+                            """
+
         else:
             pass
-            
+
     def emptyline(line):
         """
         Empty lines will go to the next input loop.

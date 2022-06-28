@@ -26,13 +26,13 @@ class HBNBCommand(cmd.Cmd):
         """
         Typing "EOF" Exits the program
         """
-        return True
+        quit()
 
     def do_quit(self, arg):
         """
         Typing "quit" Exits the program
         """
-        return True
+        quit()
 
     def do_create(self, arg):
         """
@@ -198,8 +198,10 @@ class HBNBCommand(cmd.Cmd):
                                 inner_str = inner_str + str(key_) + " "
                                 inner_str = inner_str + '"' + str(val_) + '"'
                                 self.do_update(inner_str)
+                else:
+                    print("** invalid command **")
         else:
-            pass
+            print("** invalid command **")
 
     def emptyline(line):
         """

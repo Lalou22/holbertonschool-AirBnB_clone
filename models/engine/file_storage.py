@@ -13,6 +13,9 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
+classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
+           "Place": Place, "Review": Review, "State": State, "User": User}
+
 
 class FileStorage:
     """
@@ -28,9 +31,7 @@ class FileStorage:
     reload(self): deserializes the JSON file to __objects
     """
     __file_path = "file.json"
-    __objects = {"Amenity": Amenity, "BaseModel": BaseModel,
-                 "City": City, "Place": Place, "Review": Review,
-                 "State": State, "User": User}
+    __objects = {}
 
     def all(self):
         """
@@ -60,10 +61,9 @@ class FileStorage:
         Deserializes the JSON file to __objects
         """
         try:
-            with open(self.__file_path, mode="r", encoding="UTF-8") as myfile:
-                ob = json.load(myfile)
-            for id, dic in ob.items():
-                value = models.BaseModel(**dic)
-                self.__objects[id] = value
+            with open(self.__file_path, 'r') as f:
+                jo = json.load(f)
+            for key in jo:
+                self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
         except FileNotFoundError:
             pass

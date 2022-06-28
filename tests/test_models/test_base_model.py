@@ -76,10 +76,14 @@ class TestBaseModel(unittest.TestCase):
         """
         Test for the save function in the Base_Model class
         """
-        self.my_model.save()
-        """
-        self.assertNotEqual(self.my_model.created_at, self.my_model.updated_at)
-        """
+        new_model = BaseModel()
+        old_created = new_model.created_at
+        old_updated = new_model.updated_at
+        new_model.save()
+        new_created = new_model.created_at
+        new_updated = new_model.updated_at        
+        self.assertNotEqual(old_updated, new_updated)
+        self.assertEqual(old_created, new_created)
 
     def test_to_dict(self):
         """

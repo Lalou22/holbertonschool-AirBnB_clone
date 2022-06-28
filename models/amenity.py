@@ -5,7 +5,7 @@ Class Amenity that inherits from BaseModel
 from models.base_model import BaseModel
 
 
-class State(BaseModel):
+class Amenity(BaseModel):
     """
     Public class attributes
     name: string - empty string

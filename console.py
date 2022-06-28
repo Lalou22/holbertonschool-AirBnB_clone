@@ -138,6 +138,23 @@ class HBNBCommand(cmd.Cmd):
                     return
             print("** no instance found **")
 
+    def default(self, arg):
+        """
+        Function created to deal with the advanced task
+        Where you must read and execute instructions
+        based on the classes
+        """
+        args = arg.split('.', 1)
+        if len(args) == 2:
+            if args[0] in allclasses:
+                funct = args[1].split('(', 1)
+                dic_fun = ["all"]
+                if funct[0] in dic_fun:
+                    if funct[0] == "all":
+                        self.do_all(str(args[0]))
+        else:
+            pass
+            
     def emptyline(line):
         """
         Empty lines will go to the next input loop.

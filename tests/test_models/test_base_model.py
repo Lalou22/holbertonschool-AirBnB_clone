@@ -51,6 +51,8 @@ class TestBaseModel(unittest.TestCase):
         Test to check if the class contains the wanted funcionts
         """
         self.assertIsNotNone(BaseModel.__doc__)
+        self.assertIsNotNone(BaseModel.__init__.__doc__)
+        self.assertIsNotNone(BaseModel.__str__.__doc__)
         self.assertIsNotNone(BaseModel.save.__doc__)
         self.assertIsNotNone(BaseModel.to_dict.__doc__)
 
@@ -59,6 +61,7 @@ class TestBaseModel(unittest.TestCase):
         Test to check if the class contains the wanted attributes
         """
         self.assertTrue(hasattr(BaseModel, "__init__"))
+        self.assertIsNotNone(BaseModel.__str__.__doc__)
         self.assertTrue(hasattr(BaseModel, "save"))
         self.assertTrue(hasattr(BaseModel, "to_dict"))
 
@@ -85,6 +88,17 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(my_model_dict['created_at'], str)
         self.assertIsInstance(my_model_dict['updated_at'], str)
 
+    def test_empty_dict(self):
+        """
+        Test for an empty dictionary
+        """
+        my_model_dict = {}
+        new_model = BaseModel(my_model_dict)
+        self.assertEqual(str(type(new_model)),
+                         "<class 'models.base_model.BaseModel'>")
+        self.assertIsInstance(new_model, BaseModel)
+        self.assertTrue(issubclass(type(new_model), BaseModel))
+        
     def test_BaseModel(self):
         """
         Creates and test a model using the my_model class variable

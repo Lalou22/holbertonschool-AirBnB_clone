@@ -14,7 +14,8 @@ class HBNBCommand(cmd.Cmd):
     Class for the Holberton Clone AirBnB proyect.
     """
     prompt = '(hbnb) '
-    classes = ['BaseModel', 'User']
+    classes = ['BaseModel', 'User', 'State', 'City',
+               'Amenity', 'Place', 'Review']
 
     def do_EOF(self, arg):
         """

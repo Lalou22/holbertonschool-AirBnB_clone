@@ -86,7 +86,9 @@ class HBNBCommand(cmd.Cmd):
         else:
             dict_objs = models.storage.all()
             for key in dict_objs.keys():
-                if args[1] == dict_objs[key].id:
+                obj_id = dict_objs[key].id
+                obj_name = dict_objs[key].__class__.__name__
+                if (args[1] == obj_id and args[0] == obj_name):
                     del dict_objs[key]
                     models.storage.save()
                     return
